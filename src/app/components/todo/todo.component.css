@@ -12,36 +12,13 @@
     text-align: center;
 }
 
-input{
-    display: inline;
-}
-
-ul{
-    list-style: none;
-}
-
-ul>li{
-    background-color: rgb(233, 233, 233);
-    border-radius: 10px;
-    width: 80%;
-    margin: auto;
-    padding: 0.5rem;
-}
-
 .element{
     font-size: 1.3rem;
 }
 
-.fa-solid{
+.fa-solid, .fa-sharp{
     font-size: 1.7rem;
     cursor: pointer;
-}
-
-.fa-square-plus{
-    color: darkblue;
-    font-size: 2.5rem;
-    position: relative;
-    top: 0.5rem;
 }
 
 .fa-square-check{
@@ -50,4 +27,18 @@ ul>li{
 
 .fa-trash-can{
     color: red;
+}
+
+.fa-sharp{
+    color: #fbd309;
+}
+
+.row{
+    background-color: rgb(233, 233, 233);
+    border-radius: 10px;
+    width: 80%;
+    margin: auto;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
