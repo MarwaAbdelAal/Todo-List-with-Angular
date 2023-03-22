@@ -19,8 +19,8 @@ export class LoginComponent {
   }
 
   onLogin() {
-    this._users.createUser(this.nameInput, this.quoteInput);
-    this._router.navigate(['/todos']);
+  this._users.createUser(this.nameInput, this.quoteInput);
+    this._router.navigate(['todos']);
   }
 
 }

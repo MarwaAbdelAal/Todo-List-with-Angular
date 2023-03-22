@@ -16,6 +16,7 @@ export class TodosComponent {
   todoTask: string = '';
   user!: User;
   todos: Todo[] = [];
+  currentUrl: string = ''
 
   constructor(private _users: UsersService, private _todos: TodosService, private _router: Router) {
     const user = this._users.getUserData();
@@ -24,13 +25,17 @@ export class TodosComponent {
       return;
     }
     this.user = user;
-    this.todos = this._todos.todos;
-  }
 
+    this.todos = this._todos.todos;
+
+  }
+  
   addTodo(): void {
     if (this.todoTask) {
       this._todos.addTodo(this.todoTask);
       this.todoTask = '';
+    console.log(this.currentUrl);
+
     }
   }
 

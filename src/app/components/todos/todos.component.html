@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-</head>
-
-<body>
+<router-outlet></router-outlet>
     <div class="container w-60 m-auto p-5 bg-light mt-5 mb-5">
 
         <h1>So What We Gonna Do?</h1>
@@ -31,9 +20,7 @@
             </ul>
         </div>
     </div>
-
+    
+    <!-- <app-completed-todos *ngFor="let todo of todos" [todo]="todo"></app-completed-todos> -->
+    
     <button class="btn btn-danger logout" (click)="logout()">Logout</button>
-
-</body>
-
-</html>

@@ -13,6 +13,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { FavTodosComponent } from './components/fav-todos/fav-todos.component';
 import { DeletedTodosComponent } from './components/deleted-todos/deleted-todos.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { CompletedTodosComponent } from './components/completed-todos/completed-todos.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     FavTodosComponent,
     DeletedTodosComponent,
     NotFoundComponent,
+    CompletedTodosComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,4 +8,22 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+
+  constructor(private _router: Router) {}
+
+  getAllTodos() {
+    this._router.navigate(['todos']);
+  }
+
+  getCompletedTodos() {
+    this._router.navigate(['todos', 'completed']);
+  }
+
+  getDeletedTodos() {
+    this._router.navigate(['todos', 'deleted']);
+  }
+
+  getFavouriteTodos() {
+    this._router.navigate(['todos', 'favourites']);
+  }
 }
