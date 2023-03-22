@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Todo } from 'src/app/models/todo';
-import { AuthService } from 'src/app/services/auth.service';
+import { TodosService } from 'src/app/services/todos.service';
 
 @Component({
   selector: 'app-todo',
@@ -13,28 +13,20 @@ export class TodoComponent {
 
   todos: Todo[];
 
-  constructor(private _auth: AuthService) {
-    this.todos = this._auth.todos;
+  constructor(private _todos: TodosService) {
+    this.todos = this._todos.todos;
   }
 
   deleteTodo(id: number): void {
-    const todoIndex = this.todos.findIndex((todo: Todo) => todo.id === id);
-    const confirmDelete = prompt('Are you sure you want to delete this todo?');
-    if (confirmDelete === 'yes'){
-      this.todos.splice(todoIndex, 1);
-    }
+    this._todos.deleteTodo(id);
   }
 
   completeTodo(id: number): void {
-    this.todos.find((todo: Todo) => {
-      if (todo.id === id) {
-        todo.completed = !todo.completed;
-      }
-    });
+    this._todos.completeTodo(id);
   }
 
   favouriteTodo(id: number): void {
-
+    this._todos.favouriteTodo(id);
   }
 
 }

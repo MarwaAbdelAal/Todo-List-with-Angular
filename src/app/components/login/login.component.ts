@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
-import { AuthService } from 'src/app/services/auth.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-login',
@@ -14,14 +14,13 @@ export class LoginComponent {
   quoteInput: string = '';
   user!: User;
 
-  constructor(private _auth: AuthService, private _router: Router) {
-    this.user = this._auth.user;
+  constructor(private _users: UsersService, private _router: Router) {
+    this.user = this._users.user;
   }
 
   onLogin() {
-    this._auth.createUser(this.nameInput, this.quoteInput);
-    
-    this._router.navigate(['todos']);
+    this._users.createUser(this.nameInput, this.quoteInput);
+    this._router.navigate(['/todos']);
   }
 
 }
