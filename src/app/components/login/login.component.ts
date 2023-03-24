@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UsersService } from 'src/app/services/users.service';
@@ -10,17 +11,21 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class LoginComponent {
 
-  nameInput: string = '';
-  quoteInput: string = '';
-  user!: User;
+  users!: User[];
 
   constructor(private _users: UsersService, private _router: Router) {
-    this.user = this._users.user;
+    this.users = this._users.users;
   }
 
-  onLogin() {
-  this._users.createUser(this.nameInput, this.quoteInput);
+  submitForm(form: NgForm):void {
+    const loggedIn = this._users.isUserLoggedIn(form.value['email'], form.value['password']);
+    if(!loggedIn){
+      alert("User not found, You have to signup first");
+      this._router.navigate(['signup']);
+      return;
+    }
     this._router.navigate(['todos']);
+    form.reset();
   }
 
 }

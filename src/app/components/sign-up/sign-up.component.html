@@ -1,0 +1,98 @@
+<section class="background-radial-gradient overflow-hidden">
+
+    <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+        <div class="row gx-lg-5 align-items-center mb-5">
+            <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+                <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+                    Sign Up to your <br />
+                    <span style="color: hsl(218, 81%, 75%)">Todo List</span>
+                </h1>
+            </div>
+
+            <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+                <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+
+                <form [formGroup]="myForm" (ngSubmit)="submitForm()" class="card bg-glass">
+                    <div class="card-body px-4 py-5 px-md-5">
+
+                        <!-- Name input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="name">Your name</label>
+
+                            <input name="name" formControlName="name" id="name" type="text" class="form-control"
+                                required minlength="3" maxlength="20"
+                                [ngClass]="myForm.get('name')?.touched ? myForm.get('name')?.errors?.['required'] || myForm.get('name')?.errors?.['minlength'] || myForm.get('name')?.errors?.['maxlength'] ? 'not-valid' : 'valid' : ''" />
+
+                            <p *ngIf="myForm.get('name')?.touched && myForm.get('name')?.errors?.['required']"
+                                class="text-danger">
+                                Name is required</p>
+                            <p *ngIf="myForm.get('name')?.touched && myForm.get('name')?.errors?.['minlength']"
+                                class="text-danger">
+                                Name minLength is 3 characters</p>
+                            <p *ngIf="myForm.get('name')?.touched && myForm.get('name')?.errors?.['maxlength']"
+                                class="text-danger">
+                                Name maxLength is 20 characters</p>
+
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="email">Your email</label>
+                            <input name="email" formControlName="email" id="email" type="email" class="form-control"
+                                required email
+                                [ngClass]="myForm.get('email')?.touched ? myForm.get('email')?.errors?.['required'] || myForm.get('email')?.errors?.['email'] ? 'not-valid' : 'valid' : ''" />
+                            <p *ngIf="myForm.get('email')?.touched && myForm.get('email')?.errors?.['required']"
+                                class="text-danger">
+                                Email is required</p>
+                            <p *ngIf="myForm.get('email')?.touched && myForm.get('email')?.errors?.['email']"
+                                class="text-danger">Email
+                                is invalid</p>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="password">Password</label>
+                            <input name="password" formControlName="password" id="password" type="password"
+                                class="form-control" required minlength="6"
+                                [ngClass]="myForm.get('password')?.touched ? myForm.get('password')?.errors?.['required'] || myForm.get('password')?.errors?.['minlength'] ? 'not-valid' : 'valid' : ''" />
+                            <p *ngIf="myForm.get('password')?.touched && myForm.get('password')?.errors?.['required']"
+                                class="text-danger">
+                                Password is required</p>
+                            <p *ngIf="myForm.get('password')?.touched && myForm.get('password')?.errors?.['minlength']"
+                                class="text-danger">
+                                Password minLength is 6 characters</p>
+                        </div>
+
+                        <!-- Quote input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="quote">Your Favourite quote</label>
+
+                            <input name="quote" formControlName="quote" id="quote" type="text" class="form-control"
+                                required minlength="3" maxlength="100"
+                                [ngClass]="myForm.get('quote')?.touched ? myForm.get('quote')?.errors?.['required'] || myForm.get('quote')?.errors?.['minlength'] || myForm.get('quote')?.errors?.['maxlength'] ? 'not-valid' : 'valid' : ''" />
+
+                            <p *ngIf="myForm.get('quote')?.touched && myForm.get('quote')?.errors?.['required']"
+                                class="text-danger">
+                                Quote is required</p>
+                            <p *ngIf="myForm.get('quote')?.touched && myForm.get('quote')?.errors?.['minlength']"
+                                class="text-danger">
+                                Quote minLength is 3 characters</p>
+                            <p *ngIf="myForm.get('quote')?.touched && myForm.get('quote')?.errors?.['maxlength']"
+                                class="text-danger">
+                                Quote maxLength is 100 characters</p>
+
+                        </div>
+
+                        <!-- Submit button -->
+                        <button type="submit" [disabled]="myForm.invalid" class="btn btn-primary btn-block mb-4">
+                            Sign Up
+                        </button>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>

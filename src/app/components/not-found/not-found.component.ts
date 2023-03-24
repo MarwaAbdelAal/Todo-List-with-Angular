@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavbarService } from 'src/app/services/navbar.service';
 
 @Component({
   selector: 'app-not-found',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./not-found.component.css']
 })
 export class NotFoundComponent {
+
+  constructor(public nav: NavbarService) { }
+
+  ngOnInit() {
+    this.nav.hide();
+  }
+
+  ngOnDestroy() {
+    this.nav.show();
+  }
 
 }

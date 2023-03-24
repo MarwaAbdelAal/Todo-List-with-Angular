@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NavbarService } from 'src/app/services/navbar.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,8 +10,11 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
 
+  isLoggedIn:boolean = false;
 
-  constructor(private _router: Router) {}
+  constructor(private _router: Router, public nav: NavbarService, private _users:UsersService) {
+    this.isLoggedIn = this._users.isLoggedIn();
+  }
 
   getAllTodos() {
     this._router.navigate(['todos']);
@@ -25,5 +30,10 @@ export class NavbarComponent {
 
   getFavouriteTodos() {
     this._router.navigate(['todos', 'favourites']);
+  }
+
+  logout() {
+    this._users.logout();
+    this._router.navigate(['login']);
   }
 }

@@ -7,40 +7,47 @@
                     Login to your <br />
                     <span style="color: hsl(218, 81%, 75%)">Todo List</span>
                 </h1>
-                <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Temporibus, expedita iusto veniam atque, magni tempora mollitia
-                    dolorum consequatur nulla, neque debitis eos reprehenderit quasi
-                    ab ipsum nisi dolorem modi. Quos?
-                </p>
             </div>
 
-            <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+            <div class="col-lg-6 mb-5 mb-lg-0 position-relative pt-5 pb-5">
                 <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
                 <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
 
-                <div class="card bg-glass">
+                <form #form="ngForm" (ngSubmit)="submitForm(form)" class="card bg-glass pb-1 pt-1">
                     <div class="card-body px-4 py-5 px-md-5">
-                        <!-- Name input -->
+                   
+                        <!-- Email input -->
                         <div class="form-outline mb-4">
-                            <input [(ngModel)]="nameInput" type="text" id="form3Example2" class="form-control" />
-                            <label class="form-label" for="form3Example2">Your name</label>
+                            <label class="form-label" for="email">Your email</label>
+                            <input ngModel name="email" #email="ngModel" id="email" type="email" class="form-control"
+                                required email
+                                [ngClass]="email.touched ? email.errors?.['required'] || email.errors?.['email'] ? 'not-valid' : 'valid' : ''" />
+                            <p *ngIf="email.touched && email.errors?.['required']" class="text-danger">
+                                Email is required</p>
+                            <p *ngIf="email.touched && email.errors?.['email']" class="text-danger">Email
+                                is invalid</p>
                         </div>
 
-                        <!-- Quote input -->
+                        <!-- Password input -->
                         <div class="form-outline mb-4">
-                            <input [(ngModel)]="quoteInput" type="text" id="form3Example4" class="form-control" />
-                            <label class="form-label" for="form3Example4">Favourite Quote</label>
+                            <label class="form-label" for="password">Password</label>
+                            <input ngModel name="password" #password="ngModel" id="password" type="password"
+                                class="form-control" required minlength="6"
+                                [ngClass]="password.touched ? password.errors?.['required'] || password.errors?.['minlength'] ? 'not-valid' : 'valid' : ''" />
+                            <p *ngIf="password.touched && password.errors?.['required']" class="text-danger">
+                                Password is required</p>
+                            <p *ngIf="password.touched && password.errors?.['minlength']" class="text-danger">
+                                Password minLength is 6 characters</p>
                         </div>
 
                         <!-- Submit button -->
-                        <button (click)="onLogin()" type="submit"
-                            class="btn btn-primary btn-block mb-4">
+                        <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-block mb-4">
                             Login
                         </button>
 
                     </div>
-                </div>
+                </form>
+
             </div>
         </div>
     </div>

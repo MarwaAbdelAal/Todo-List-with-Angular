@@ -1,28 +1,29 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand" href="#">Navbar</a>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['todos']" routerLinkActive="active" (click)="getAllTodos()">Home</a>
-          </li>
-          <li class="nav-item">
-          <a class="nav-link" [routerLink]="['todos', 'favourites']" routerLinkActive="active" (click)="getFavouriteTodos()">Favourites</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['todos', 'completed']" routerLinkActive="active" (click)="getCompletedTodos()">Completed</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['todos', 'deleted']" routerLinkActive="active" (click)="getDeletedTodos()">Deleted</a>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
+<nav *ngIf="nav.visible" class="navbar navbar-expand-lg navbar-light bg-light p-2">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+      aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li *ngIf="isLoggedIn" class="nav-item">
+          <a class="nav-link" [routerLink]="['todos']" routerLinkActive="active">Home</a>
+        </li>
+        <li *ngIf="isLoggedIn" class="nav-item">
+          <a class="nav-link" [routerLink]="['todos', 'favourites']" routerLinkActive="active">Favourites</a>
+        </li>
+        <li *ngIf="isLoggedIn" class="nav-item">
+          <a class="nav-link" [routerLink]="['todos', 'completed']" routerLinkActive="active">Completed</a>
+        </li>
+        <li *ngIf="isLoggedIn" class="nav-item">
+          <a class="nav-link" [routerLink]="['todos', 'deleted']" routerLinkActive="active">Deleted</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <button *ngIf="!isLoggedIn" [routerLink]="['login']" class="btn btn-outline-success p-1 ps-2 pe-2 ms-2 me-2">Login</button>
+        <button *ngIf="!isLoggedIn" [routerLink]="['signup']" class="btn btn-outline-primary p-1 ps-2 pe-2 ms-2 me-2">SignUp</button>
+        <button *ngIf="isLoggedIn" (click)="logout()" class="btn btn-outline-danger p-1 ps-2 pe-2 ms-2 me-2">LogOut</button>
+      </form>
     </div>
-  </nav>
+  </div>
+</nav>
