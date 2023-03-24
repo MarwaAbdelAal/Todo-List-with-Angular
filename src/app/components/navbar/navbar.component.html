@@ -10,18 +10,29 @@
           <a class="nav-link" [routerLink]="['todos']" routerLinkActive="active">Home</a>
         </li>
         <li *ngIf="isLoggedIn" class="nav-item">
-          <a class="nav-link" [routerLink]="['todos', 'favourites']" routerLinkActive="active">Favourites</a>
+          <a class="nav-link" [routerLink]="['favouritesTodos']" routerLinkActive="active">Favourites</a>
         </li>
         <li *ngIf="isLoggedIn" class="nav-item">
-          <a class="nav-link" [routerLink]="['todos', 'completed']" routerLinkActive="active">Completed</a>
+          <a class="nav-link" [routerLink]="['completedTodos']" routerLinkActive="active">Completed</a>
         </li>
         <li *ngIf="isLoggedIn" class="nav-item">
-          <a class="nav-link" [routerLink]="['todos', 'deleted']" routerLinkActive="active">Deleted</a>
+          <a class="nav-link" [routerLink]="['deletedTodos']" routerLinkActive="active">Deleted</a>
+        </li>
+        <li *ngIf="isLoggedIn" class="nav-item">
+          <a class="nav-link" [routerLink]="['contactus']" routerLinkActive="active">Contact Us</a>
         </li>
       </ul>
       <form class="d-flex">
         <button *ngIf="!isLoggedIn" [routerLink]="['login']" class="btn btn-outline-success p-1 ps-2 pe-2 ms-2 me-2">Login</button>
         <button *ngIf="!isLoggedIn" [routerLink]="['signup']" class="btn btn-outline-primary p-1 ps-2 pe-2 ms-2 me-2">SignUp</button>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li *ngIf="isLoggedIn" class="nav-item">
+            <a class="nav-link" [routerLink]="['profile']" routerLinkActive="active">{{user.name}}</a>
+          </li>
+          <li *ngIf="isLoggedIn" class="nav-item">
+            <a class="nav-link" [routerLink]="['profile']" routerLinkActive="active"><img src="../../../assets/gray-user-profile-icon-png-fP8Q1P.png" class="img-fluid" width="30px" height="30px"></a>
+          </li>
+        </ul>
         <button *ngIf="isLoggedIn" (click)="logout()" class="btn btn-outline-danger p-1 ps-2 pe-2 ms-2 me-2">LogOut</button>
       </form>
     </div>

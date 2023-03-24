@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/user';
 
 @Injectable({
@@ -11,6 +12,8 @@ export class UsersService {
 
   user!: User;
   users: User[] = [];
+  loggedIn = new BehaviorSubject(false);
+  loggedIn$ = this.loggedIn.asObservable();
 
   getAllUsers(): User[] {
     this.users = JSON.parse(localStorage.getItem('users') || '[]');
@@ -18,21 +21,29 @@ export class UsersService {
   }
 
   isLoggedIn(): boolean {
+    this.loggedIn.next(true);
     return !!localStorage.getItem('user');
+  }
+
+  logout() {
+    localStorage.removeItem('user');
+    this.loggedIn.next(false);
   }
 
   isUserLoggedIn(sentEmail: string, sentPassword: string): boolean {
     const loggedUser = this.getAllUsers().find(user => user.email === sentEmail && user.password === sentPassword);
 
     if (!loggedUser) {
+      this.loggedIn.next(false);
       return false
     }
     this.user = loggedUser;
     localStorage.setItem('user', JSON.stringify(this.user))
+    this.loggedIn.next(true);
     return true;
   }
 
-  getUserData() : User{
+  getUserData(): User {
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
     return this.user;
   }
@@ -54,10 +65,6 @@ export class UsersService {
 
     this.users.push({ ...newUser, 'id': userId });
     localStorage.setItem('users', JSON.stringify(this.users))
-  }
-
-  logout(){
-    localStorage.removeItem('user');
   }
 
 }

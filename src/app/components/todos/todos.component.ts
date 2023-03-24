@@ -18,13 +18,7 @@ export class TodosComponent {
   todos: Todo[] = [];
 
   constructor(private _users: UsersService, private _todos: TodosService, private _router: Router) {
-    const user = this._users.getUserData();
-    if (!user) {
-      this._router.navigate(['login'])
-      return;
-    }
-    this.user = user;
-
+    this.user = this._users.getUserData();
     this.todos = this._todos.getAllTodos();
   }
 

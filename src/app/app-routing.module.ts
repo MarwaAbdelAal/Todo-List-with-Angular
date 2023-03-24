@@ -6,6 +6,7 @@ import { DeletedTodosComponent } from './components/deleted-todos/deleted-todos.
 import { FavTodosComponent } from './components/fav-todos/fav-todos.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { TodosComponent } from './components/todos/todos.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -15,10 +16,11 @@ const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "signup", component: SignUpComponent },
   { path: "contactus", component: ContactUsComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'todos', component: TodosComponent, canActivate: [AuthGuard] },
-  { path: 'todos/completed', component: CompletedTodosComponent, canActivate: [AuthGuard] },
-  { path: 'todos/favourites', component: FavTodosComponent, canActivate: [AuthGuard] },
-  { path: 'todos/deleted', component: DeletedTodosComponent, canActivate: [AuthGuard] },
+  { path: 'completedTodos', component: CompletedTodosComponent, canActivate: [AuthGuard] },
+  { path: 'favouritesTodos', component: FavTodosComponent, canActivate: [AuthGuard] },
+  { path: 'deletedTodos', component: DeletedTodosComponent, canActivate: [AuthGuard] },
   { path: "**", component: NotFoundComponent },
 ];
 

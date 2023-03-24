@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -10,10 +11,14 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class NavbarComponent {
 
-  isLoggedIn:boolean = false;
+  isLoggedIn = false;
+  user!: User;
 
-  constructor(private _router: Router, public nav: NavbarService, private _users:UsersService) {
-    this.isLoggedIn = this._users.isLoggedIn();
+  constructor(private _router: Router, public nav: NavbarService, private _users: UsersService) {
+    this._users.loggedIn$.subscribe((res) => {
+      this.isLoggedIn = res;
+    })
+    this.user = this._users.getUserData();
   }
 
   getAllTodos() {

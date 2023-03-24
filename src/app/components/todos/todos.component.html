@@ -1,12 +1,9 @@
 <div class="container w-60 m-auto p-5 bg-light mt-5 mb-5">
-    
+
     <h1 class="my-5 display-5 fw-bold ls-tight">
         <span style="color: hsl(218, 81%, 75%)">ToDo List</span>
+        <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%); font-size: 30px;">{{user.quote}}</p>
     </h1>
-
-
-    <h2>{{user.name}}</h2>
-    <p>{{user.quote}}</p>
 
     <div class="container">
         <input [(ngModel)]="todoTask" (keyup.enter)="addTodo()" type="text" placeholder="Enter Your Task"
