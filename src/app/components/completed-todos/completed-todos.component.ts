@@ -9,17 +9,12 @@ import { TodosService } from 'src/app/services/todos.service';
 })
 export class CompletedTodosComponent {
 
-  // todo!: Todo;
   @Input() todo!: Todo;
 
   todos: Todo[];
 
   constructor(private _todos: TodosService) {
-    this.todos = this._todos.todos;
-  }
-
-  completeTodo(id: number): void {
-    this._todos.completeTodo(id);
+    this.todos = this._todos.getCompletedTodos();
   }
 
 }

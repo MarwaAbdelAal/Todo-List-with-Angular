@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +14,9 @@ import { FavTodosComponent } from './components/fav-todos/fav-todos.component';
 import { DeletedTodosComponent } from './components/deleted-todos/deleted-todos.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { CompletedTodosComponent } from './components/completed-todos/completed-todos.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -28,11 +31,15 @@ import { CompletedTodosComponent } from './components/completed-todos/completed-
     DeletedTodosComponent,
     NotFoundComponent,
     CompletedTodosComponent,
+    SignUpComponent,
+    ContactUsComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,11 +8,12 @@ export class TodosService {
 
   constructor() { }
 
-  // todos: Todo[] = [];
-  todos: Todo[] = JSON.parse(localStorage.getItem('todos')||"");
+  todos: Todo[] = [];
+  deletedTodos: Todo[] = [];
 
   addTodo(todoTask: string): void {
     let todoId = 0;
+    this.todos = this.getAllTodos();    
     if (!this.todos.length) {
       todoId = 1;
     }
@@ -25,17 +26,21 @@ export class TodosService {
       "todo": todoTask,
       "completed": false,
       "favourite": false,
+      "deleted": false,
       "userId": 1
     }
     this.todos.push(newTask);
     localStorage.setItem('todos', JSON.stringify(this.todos))
   }
 
+  // TODO: add Modal before delete
   deleteTodo(id: number): void {
     const todoIndex = this.todos.findIndex((todo: Todo) => todo.id === id);
-    const confirmDelete = prompt('Are you sure you want to delete this todo?');
-    if (confirmDelete === 'yes'){
+    const deletedTodo = this.todos.find((todo: Todo) => todo.id === id);
+    if (deletedTodo) {
+      this.deletedTodos.push(deletedTodo);
       this.todos.splice(todoIndex, 1);
+      localStorage.setItem('todos', JSON.stringify(this.todos));
     }
   }
 
@@ -45,6 +50,7 @@ export class TodosService {
         todo.completed = !todo.completed;
       }
     });
+    localStorage.setItem('todos', JSON.stringify(this.todos));
   }
 
   favouriteTodo(id: number): void {
@@ -53,7 +59,21 @@ export class TodosService {
         todo.favourite = !todo.favourite;
       }
     });
-    console.log(this.todos);
+    localStorage.setItem('todos', JSON.stringify(this.todos));
+  }
+
+  getAllTodos(): Todo[] {
+    this.todos = JSON.parse(localStorage.getItem('todos') || '[]');
+    return this.todos;
+  }
+  getFavouriteTodos(): Todo[] {
+    return this.todos.filter((todo: Todo) => todo.favourite);
+  }
+  getCompletedTodos(): Todo[] {
+    return this.todos.filter((todo: Todo) => todo.completed);
+  }
+  getDeletedTodos(): Todo[] {
+    return this.deletedTodos;
   }
 
 }

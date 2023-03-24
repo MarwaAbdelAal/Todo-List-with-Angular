@@ -16,7 +16,7 @@
     font-size: 1.3rem;
 }
 
-.fa-solid, .fa-sharp{
+.fa-solid, .fa-sharp, .fa-regular{
     font-size: 1.7rem;
     cursor: pointer;
 }
@@ -29,7 +29,7 @@
     color: red;
 }
 
-.fa-sharp{
+.fa-star{
     color: #fbd309;
 }
 

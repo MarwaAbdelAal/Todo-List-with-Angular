@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Todo } from 'src/app/models/todo';
 import { User } from 'src/app/models/user';
 import { TodosService } from 'src/app/services/todos.service';
@@ -16,7 +16,6 @@ export class TodosComponent {
   todoTask: string = '';
   user!: User;
   todos: Todo[] = [];
-  currentUrl: string = ''
 
   constructor(private _users: UsersService, private _todos: TodosService, private _router: Router) {
     const user = this._users.getUserData();
@@ -26,21 +25,13 @@ export class TodosComponent {
     }
     this.user = user;
 
-    this.todos = this._todos.todos;
-
+    this.todos = this._todos.getAllTodos();
   }
-  
+
   addTodo(): void {
     if (this.todoTask) {
       this._todos.addTodo(this.todoTask);
       this.todoTask = '';
-    console.log(this.currentUrl);
-
     }
-  }
-
-  logout() {
-    localStorage.removeItem('user');
-    this._router.navigate(['login']);
   }
 }

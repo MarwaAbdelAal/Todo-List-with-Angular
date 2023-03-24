@@ -1,22 +1,21 @@
-
-.container{
+.container {
     text-align: center;
 }
 
-input{
+input {
     display: inline;
 }
 
-ul{
+ul {
     list-style: none;
 }
 
-.fa-solid{
+.fa-solid {
     font-size: 1.7rem;
     cursor: pointer;
 }
 
-.fa-square-plus{
+.fa-square-plus {
     color: darkblue;
     font-size: 2.5rem;
     position: relative;

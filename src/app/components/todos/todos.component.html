@@ -1,26 +1,25 @@
-<router-outlet></router-outlet>
-    <div class="container w-60 m-auto p-5 bg-light mt-5 mb-5">
+<div class="container w-60 m-auto p-5 bg-light mt-5 mb-5">
+    
+    <h1 class="my-5 display-5 fw-bold ls-tight">
+        <span style="color: hsl(218, 81%, 75%)">ToDo List</span>
+    </h1>
 
-        <h1>So What We Gonna Do?</h1>
 
-        <h2>{{user.name}}</h2>
-        <h2>{{user.quote}}</h2>
+    <h2>{{user.name}}</h2>
+    <p>{{user.quote}}</p>
 
-        <div class="container">
-            <input [(ngModel)]="todoTask" (keyup.enter)="addTodo()" type="text" placeholder="Enter Your Task"
-                class="form-control w-50 formInput">
-            <i class="fa-solid fa-square-plus p-1 formInput" (click)="addTodo()"></i>
-        </div>
-
-        <div class="container todos pt-5 pb-5">
-            <ul>
-                <li>
-                    <app-todo *ngFor="let todo of todos" [todo]="todo"></app-todo>
-                </li>
-            </ul>
-        </div>
+    <div class="container">
+        <input [(ngModel)]="todoTask" (keyup.enter)="addTodo()" type="text" placeholder="Enter Your Task"
+            class="form-control w-50 formInput">
+        <i class="fa-solid fa-square-plus p-1 formInput" (click)="addTodo()"></i>
     </div>
-    
-    <!-- <app-completed-todos *ngFor="let todo of todos" [todo]="todo"></app-completed-todos> -->
-    
-    <button class="btn btn-danger logout" (click)="logout()">Logout</button>
+
+    <div class="container todos pt-5 pb-5">
+        <ul>
+            <li>
+                <app-todo *ngFor="let todo of todos" [todo]="todo"></app-todo>
+            </li>
+        </ul>
+    </div>
+
+</div>
