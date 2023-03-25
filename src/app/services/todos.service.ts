@@ -11,9 +11,9 @@ export class TodosService {
   todos: Todo[] = [];
   deletedTodos: Todo[] = [];
 
-  addTodo(todoTask: string): void {
+  addTodo(todoTask: string, userId: number): void {
     let todoId = 0;
-    this.todos = this.getAllTodos();    
+    this.todos = this.getAllTodos();
     if (!this.todos.length) {
       todoId = 1;
     }
@@ -27,7 +27,7 @@ export class TodosService {
       "completed": false,
       "favourite": false,
       "deleted": false,
-      "userId": 1
+      "userId": userId
     }
     this.todos.push(newTask);
     localStorage.setItem('todos', JSON.stringify(this.todos))
@@ -60,6 +60,12 @@ export class TodosService {
       }
     });
     localStorage.setItem('todos', JSON.stringify(this.todos));
+  }
+
+  getUserTodos(userId: number): Todo[] {
+    this.todos = JSON.parse(localStorage.getItem('todos') || '[]');
+    this.todos = this.todos.filter((todo) => todo.userId === userId)    
+    return this.todos;
   }
 
   getAllTodos(): Todo[] {

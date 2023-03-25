@@ -1,5 +1,3 @@
-import { Todo } from "./todo";
-
 export interface User{
     id: number;
     name: string;

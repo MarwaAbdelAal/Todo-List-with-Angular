@@ -8,10 +8,10 @@
             </div>
             <div class="col-lg-3 col-md-5 col-xs-6 actions">
                 
-                <i *ngIf="currentUrl === 'todos' || currentUrl === 'favourites'" class="fa-regular fa-star p-2" (click)="favouriteTodo(todo.id)"
+                <i *ngIf="currentUrl === 'todos' || currentUrl === 'favouritesTodos'" class="fa-regular fa-star p-2" (click)="favouriteTodo(todo.id)"
                 [ngClass]="todo.favourite? 'fa-solid' : 'fa-sharp'"></i>
 
-                <i *ngIf="currentUrl === 'todos' || currentUrl === 'completed'" class="fa-square-check p-2" (click)="completeTodo(todo.id)"
+                <i *ngIf="currentUrl === 'todos' || currentUrl === 'completedTodos'" class="fa-square-check p-2" (click)="completeTodo(todo.id)"
                 [ngClass]="todo.completed? 'fa-solid' : 'fa-regular'"></i>
                 
                 <i *ngIf="currentUrl === 'todos'" class="fa-solid fa-trash-can p-2" (click)="deleteTodo(todo.id)"></i>

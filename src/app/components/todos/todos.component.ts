@@ -19,12 +19,12 @@ export class TodosComponent {
 
   constructor(private _users: UsersService, private _todos: TodosService, private _router: Router) {
     this.user = this._users.getUserData();
-    this.todos = this._todos.getAllTodos();
+    this.todos = this._todos.getUserTodos(this.user.id);
   }
 
   addTodo(): void {
     if (this.todoTask) {
-      this._todos.addTodo(this.todoTask);
+      this._todos.addTodo(this.todoTask, this.user.id);
       this.todoTask = '';
     }
   }
