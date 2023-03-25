@@ -63,7 +63,7 @@ export class UsersService {
       }
     }
 
-    this.users.push({ ...newUser, 'id': userId });
+    this.users.push({ ...newUser, 'id': userId, 'joinedDate': new Date()});
     localStorage.setItem('users', JSON.stringify(this.users))
   }
 
