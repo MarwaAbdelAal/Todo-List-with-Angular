@@ -17,17 +17,17 @@
         
         <li *ngIf="isLoggedIn" class="nav-item ps-4">
           <i class="nav-link" [routerLink]="['favouritesTodos']" routerLinkActive="active" class="fa-solid fa-regular fa-star p-2"></i>
-          <span>{{favTodosLength}}</span>
+          <span>{{numOfFavouriteTodos}}</span>
         </li>
         
         <li *ngIf="isLoggedIn" class="nav-item ps-4">
           <i class="nav-link" [routerLink]="['completedTodos']" routerLinkActive="active" class="fa-solid fa-square-check p-2"></i>
-          <span>{{completedTodosLength}}</span>
+          <span>{{numOfCompletedTodos}}</span>
         </li>
 
         <li *ngIf="isLoggedIn" class="nav-item ps-4">
           <i class="nav-link" [routerLink]="['deletedTodos']" routerLinkActive="active" class="fa-solid fa-trash-can p-2"></i>
-          <span>{{deletedTodosLength}}</span>
+          <span>{{numOfDeletedTodos}}</span>
         
         </li>
       </ul>

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Todo } from '../models/todo';
 
 @Injectable({
@@ -8,8 +9,17 @@ export class TodosService {
 
   constructor() { }
 
-  todos: Todo[] = [];
-  deletedTodos: Todo[] = [];
+  todos: Todo[] = JSON.parse(localStorage.getItem('todos') || '[]');
+  deletedTodos: Todo[] = JSON.parse(localStorage.getItem('deletedTodos') || '[]');
+
+  numOfCompletedTodos = new BehaviorSubject(this.getCompletedTodos().length);
+  numOfCompletedTodos$ = this.numOfCompletedTodos.asObservable();
+  
+  numOfFavouriteTodos = new BehaviorSubject(this.getFavouriteTodos().length);
+  numOfFavouriteTodos$ = this.numOfFavouriteTodos.asObservable();
+
+  numOfDeletedTodos = new BehaviorSubject(this.getDeletedTodos().length);
+  numOfDeletedTodos$ = this.numOfDeletedTodos.asObservable();
 
   addTodo(todoTask: string, userId: number): void {
     let todoId = 0;
@@ -42,6 +52,7 @@ export class TodosService {
       this.todos.splice(todoIndex, 1);
       localStorage.setItem('todos', JSON.stringify(this.todos));
       localStorage.setItem('deletedTodos', JSON.stringify(this.deletedTodos));
+      this.numOfDeletedTodos.next(this.getDeletedTodos().length);
     }
   }
 
@@ -49,6 +60,7 @@ export class TodosService {
     this.todos.find((todo: Todo) => {
       if (todo.id === id) {
         todo.completed = !todo.completed;
+        this.numOfCompletedTodos.next(this.getCompletedTodos().length);
       }
     });
     localStorage.setItem('todos', JSON.stringify(this.todos));
@@ -58,6 +70,7 @@ export class TodosService {
     this.todos.find((todo: Todo) => {
       if (todo.id === id) {
         todo.favourite = !todo.favourite;
+        this.numOfFavouriteTodos.next(this.getFavouriteTodos().length);
       }
     });
     localStorage.setItem('todos', JSON.stringify(this.todos));
@@ -65,7 +78,7 @@ export class TodosService {
 
   getUserTodos(userId: number): Todo[] {
     this.todos = JSON.parse(localStorage.getItem('todos') || '[]');
-    this.todos = this.todos.filter((todo) => todo.userId === userId)    
+    this.todos = this.todos.filter((todo) => todo.userId === userId)
     return this.todos;
   }
 
@@ -82,16 +95,6 @@ export class TodosService {
   getDeletedTodos(): Todo[] {
     this.deletedTodos = JSON.parse(localStorage.getItem('deletedTodos') || '[]');
     return this.deletedTodos;
-  }
-
-  getFavouriteTodosLength(): number {
-    return this.getFavouriteTodos().length;
-  }
-  getCompletedTodosLength(): number {
-    return this.getCompletedTodos().length;
-  }
-  getDeletedTodosLength(): number {
-    return this.getDeletedTodos().length;
   }
 
   removeDeletedTodos(): void {

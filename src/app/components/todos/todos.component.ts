@@ -25,6 +25,7 @@ export class TodosComponent {
   addTodo(): void {
     if (this.todoTask) {
       this._todos.addTodo(this.todoTask, this.user.id);
+      this.todos = this._todos.todos;
       this.todoTask = '';
     }
   }

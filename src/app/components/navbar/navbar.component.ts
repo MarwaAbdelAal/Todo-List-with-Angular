@@ -13,27 +13,29 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class NavbarComponent {
 
-  isLoggedIn = false;
   user!: User;
   todos: Todo[] = [];
-  todosLength: number = 0;
-
-  deletedTodosLength: number = 0;
-  completedTodosLength: number = 0;
-  favTodosLength: number = 0;
+  isLoggedIn = false;
+  numOfCompletedTodos: number = 0;
+  numOfDeletedTodos: number = 0;
+  numOfFavouriteTodos: number = 0;
 
   constructor(private _router: Router, public nav: NavbarService, private _users: UsersService, private _todos: TodosService) {
     this._users.loggedIn$.subscribe((res) => {
       this.isLoggedIn = res;
     })
+    this._todos.numOfCompletedTodos$.subscribe((res) => {
+      this.numOfCompletedTodos = res;
+    })
+    this._todos.numOfFavouriteTodos$.subscribe((res) => {
+      this.numOfFavouriteTodos = res;
+    })
+    this._todos.numOfDeletedTodos$.subscribe((res) => {
+      this.numOfDeletedTodos = res;
+    })
+
     this.user = this._users.getUserData();
     this.todos = this._todos.getUserTodos(this.user.id);
-  }
-
-  ngOnInit() {
-    this.completedTodosLength = this._todos.getCompletedTodosLength();
-    this.deletedTodosLength = this._todos.getDeletedTodosLength();
-    this.favTodosLength = this._todos.getFavouriteTodosLength();
   }
 
   getAllTodos() {
