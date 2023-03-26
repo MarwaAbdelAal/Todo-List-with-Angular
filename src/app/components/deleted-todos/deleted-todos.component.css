@@ -1,8 +1,12 @@
-
-.container{
+.container {
     text-align: center;
 }
 
-ul{
+ul {
     list-style: none;
+}
+
+.fa-rotate-right {
+    color: hsl(34, 58%, 52%);
+    cursor: pointer;
 }

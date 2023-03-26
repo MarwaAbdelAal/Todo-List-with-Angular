@@ -41,6 +41,7 @@ export class TodosService {
       this.deletedTodos.push(deletedTodo);
       this.todos.splice(todoIndex, 1);
       localStorage.setItem('todos', JSON.stringify(this.todos));
+      localStorage.setItem('deletedTodos', JSON.stringify(this.deletedTodos));
     }
   }
 
@@ -79,7 +80,22 @@ export class TodosService {
     return this.todos.filter((todo: Todo) => todo.completed);
   }
   getDeletedTodos(): Todo[] {
+    this.deletedTodos = JSON.parse(localStorage.getItem('deletedTodos') || '[]');
     return this.deletedTodos;
+  }
+
+  getFavouriteTodosLength(): number {
+    return this.getFavouriteTodos().length;
+  }
+  getCompletedTodosLength(): number {
+    return this.getCompletedTodos().length;
+  }
+  getDeletedTodosLength(): number {
+    return this.getDeletedTodos().length;
+  }
+
+  removeDeletedTodos(): void {
+    localStorage.removeItem('deletedTodos');
   }
 
 }
