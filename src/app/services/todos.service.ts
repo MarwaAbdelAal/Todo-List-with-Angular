@@ -43,7 +43,6 @@ export class TodosService {
     localStorage.setItem('todos', JSON.stringify(this.todos))
   }
 
-  // TODO: add Modal before delete
   deleteTodo(id: number): void {
     const todoIndex = this.todos.findIndex((todo: Todo) => todo.id === id);
     const deletedTodo = this.todos.find((todo: Todo) => todo.id === id);
@@ -99,6 +98,7 @@ export class TodosService {
 
   removeDeletedTodos(): void {
     localStorage.removeItem('deletedTodos');
+    this.numOfDeletedTodos.next(this.getDeletedTodos().length);
   }
 
 }

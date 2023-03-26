@@ -19,6 +19,7 @@ export class DeletedTodosComponent {
 
   removeDeletedTodos(): void {
     this._todos.removeDeletedTodos();
+    this.todos = this._todos.getDeletedTodos();
   }
 
 }
