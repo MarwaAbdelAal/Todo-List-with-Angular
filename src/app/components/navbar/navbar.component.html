@@ -22,7 +22,7 @@
         
         <li *ngIf="isLoggedIn" class="nav-item ps-4">
           <i class="nav-link" [routerLink]="['completedTodos']" routerLinkActive="active" class="fa-solid fa-square-check p-2"></i>
-          <span>{{numOfCompletedTodos}}</span>
+          <span>{{numOfCompletedTodos}}%</span>
         </li>
 
         <li *ngIf="isLoggedIn" class="nav-item ps-4">

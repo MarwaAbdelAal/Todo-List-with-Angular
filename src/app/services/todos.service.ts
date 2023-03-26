@@ -12,7 +12,7 @@ export class TodosService {
   todos: Todo[] = JSON.parse(localStorage.getItem('todos') || '[]');
   deletedTodos: Todo[] = JSON.parse(localStorage.getItem('deletedTodos') || '[]');
 
-  numOfCompletedTodos = new BehaviorSubject(this.getCompletedTodos().length);
+  numOfCompletedTodos = new BehaviorSubject(this.getCompletedTodos().length / this.todos.length);
   numOfCompletedTodos$ = this.numOfCompletedTodos.asObservable();
   
   numOfFavouriteTodos = new BehaviorSubject(this.getFavouriteTodos().length);
@@ -60,7 +60,7 @@ export class TodosService {
     this.todos.find((todo: Todo) => {
       if (todo.id === id) {
         todo.completed = !todo.completed;
-        this.numOfCompletedTodos.next(this.getCompletedTodos().length);
+        this.numOfCompletedTodos.next(this.getCompletedTodos().length / this.todos.length);
       }
     });
     localStorage.setItem('todos', JSON.stringify(this.todos));

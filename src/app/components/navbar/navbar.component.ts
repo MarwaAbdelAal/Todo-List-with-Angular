@@ -25,7 +25,7 @@ export class NavbarComponent {
       this.isLoggedIn = res;
     })
     this._todos.numOfCompletedTodos$.subscribe((res) => {
-      this.numOfCompletedTodos = res;
+      this.numOfCompletedTodos = Math.floor(res * 100);
     })
     this._todos.numOfFavouriteTodos$.subscribe((res) => {
       this.numOfFavouriteTodos = res;
