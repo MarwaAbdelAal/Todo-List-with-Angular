@@ -33,6 +33,10 @@
     color: #fbd309;
 }
 
+.fa-rotate-left{
+    color: green;
+}
+
 .row{
     background-color: rgb(233, 233, 233);
     border-radius: 10px;

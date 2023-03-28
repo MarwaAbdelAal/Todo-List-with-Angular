@@ -20,6 +20,7 @@ export class NavbarComponent {
   numOfCompletedTodos: number = 0;
   numOfDeletedTodos: number = 0;
   numOfFavouriteTodos: number = 0;
+  subsTodos: Todo[] = []
 
   constructor(private _router: Router, public nav: NavbarService, private _users: UsersService, private _todos: TodosService) {
     this._users.loggedIn$.subscribe((res) => {
@@ -28,15 +29,29 @@ export class NavbarComponent {
     this._users.loggedInUsername$.subscribe((res) => {
       this.loggedInUsername = res;
     })
-    this._todos.numOfCompletedTodos$.subscribe((res) => {
-      this.numOfCompletedTodos = Math.floor(res * 100) | 0;
-    })
-    this._todos.numOfFavouriteTodos$.subscribe((res) => {
-      this.numOfFavouriteTodos = res;
-    })
-    this._todos.numOfDeletedTodos$.subscribe((res) => {
-      this.numOfDeletedTodos = res;
-    })
+    this._todos.subsTodos$.subscribe((res) => {
+      let completed = 0;
+      let favourite = 0;
+      let userTodos = 0;
+      let deleted = 0;
+      res.forEach((todo: Todo) => {
+        if (todo.userId === this._users.getUserData().id) {
+          userTodos++;
+        }
+        if (todo.completed && todo.userId === this._users.getUserData().id) {
+          completed++;
+        }
+        if (todo.favourite && todo.userId === this._users.getUserData().id) {
+          favourite++;
+        }
+        if (todo.deleted && todo.userId === this._users.getUserData().id) {
+          deleted++;
+        }
+      })
+      this.numOfCompletedTodos = Math.floor(completed / userTodos * 100) | 0;
+      this.numOfFavouriteTodos = favourite;
+      this.numOfDeletedTodos = deleted;
+    });
 
     this.user = this._users.getUserData();
     this.todos = this._todos.getUserTodos(this.user.id);

@@ -10,16 +10,9 @@ export class TodosService {
   constructor() { }
 
   todos: Todo[] = JSON.parse(localStorage.getItem('todos') || '[]');
-  deletedTodos: Todo[] = JSON.parse(localStorage.getItem('deletedTodos') || '[]');
 
-  numOfCompletedTodos = new BehaviorSubject(this.getCompletedTodos().length / this.todos.length);
-  numOfCompletedTodos$ = this.numOfCompletedTodos.asObservable();
-  
-  numOfFavouriteTodos = new BehaviorSubject(this.getFavouriteTodos().length);
-  numOfFavouriteTodos$ = this.numOfFavouriteTodos.asObservable();
-
-  numOfDeletedTodos = new BehaviorSubject(this.getDeletedTodos().length);
-  numOfDeletedTodos$ = this.numOfDeletedTodos.asObservable();
+  subsTodos = new BehaviorSubject(this.todos);
+  subsTodos$ = this.subsTodos.asObservable();
 
   addTodo(todoTask: string, userId: number): void {
     let todoId = 0;
@@ -40,26 +33,25 @@ export class TodosService {
       "userId": userId
     }
     this.todos.push(newTask);
-    localStorage.setItem('todos', JSON.stringify(this.todos))
+    localStorage.setItem('todos', JSON.stringify(this.todos));
+    this.subsTodos.next(this.todos);
   }
 
   deleteTodo(id: number): void {
-    const todoIndex = this.todos.findIndex((todo: Todo) => todo.id === id);
-    const deletedTodo = this.todos.find((todo: Todo) => todo.id === id);
-    if (deletedTodo) {
-      this.deletedTodos.push(deletedTodo);
-      this.todos.splice(todoIndex, 1);
-      localStorage.setItem('todos', JSON.stringify(this.todos));
-      localStorage.setItem('deletedTodos', JSON.stringify(this.deletedTodos));
-      this.numOfDeletedTodos.next(this.getDeletedTodos().length);
-    }
+    this.todos.find((todo: Todo) => {
+      if (todo.id === id) {
+        todo.deleted = !todo.deleted;
+        this.subsTodos.next(this.todos);
+      }
+    });
+    localStorage.setItem('todos', JSON.stringify(this.todos));
   }
 
   completeTodo(id: number): void {
     this.todos.find((todo: Todo) => {
       if (todo.id === id) {
         todo.completed = !todo.completed;
-        this.numOfCompletedTodos.next(this.getCompletedTodos().length / this.todos.length);
+        this.subsTodos.next(this.todos);
       }
     });
     localStorage.setItem('todos', JSON.stringify(this.todos));
@@ -69,13 +61,14 @@ export class TodosService {
     this.todos.find((todo: Todo) => {
       if (todo.id === id) {
         todo.favourite = !todo.favourite;
-        this.numOfFavouriteTodos.next(this.getFavouriteTodos().length);
+        this.subsTodos.next(this.todos);
       }
     });
     localStorage.setItem('todos', JSON.stringify(this.todos));
   }
 
   getUserTodos(userId: number): Todo[] {
+    this.subsTodos.next(this.todos);
     return this.getAllTodos().filter((todo) => todo.userId === userId)
   }
 
@@ -90,13 +83,13 @@ export class TodosService {
     return this.todos.filter((todo: Todo) => todo.completed);
   }
   getDeletedTodos(): Todo[] {
-    this.deletedTodos = JSON.parse(localStorage.getItem('deletedTodos') || '[]');
-    return this.deletedTodos;
+    return this.todos.filter(todo => todo.deleted);
   }
 
   removeDeletedTodos(): void {
-    localStorage.removeItem('deletedTodos');
-    this.numOfDeletedTodos.next(this.getDeletedTodos().length);
+    this.todos = this.todos.filter(todo => !todo.deleted);
+    localStorage.setItem('todos', JSON.stringify(this.todos));
+    this.subsTodos.next(this.todos);
   }
 
 }

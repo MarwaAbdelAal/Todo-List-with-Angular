@@ -11,13 +11,16 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class ProfileComponent {
 
-  user: User | undefined;
+  user!: User;
   todosLength: number = 0;
   joinedDate: string = '';
   todos: Todo[] = [];
 
   constructor(private _users: UsersService, private _todos: TodosService) {
-    this.todos = this._todos.todos;
+    this.user = this._users.getUserData();
+    this._todos.subsTodos$.subscribe((res) => {
+      this.todos = res.filter(todo => todo.userId === this.user.id);
+    });
    }
 
   ngOnInit() {

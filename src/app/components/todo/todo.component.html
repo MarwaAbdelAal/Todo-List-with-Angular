@@ -23,6 +23,10 @@
                         class="fa-solid fa-trash-can "></i>
                 </button>
 
+                <button type="button" class="btn mx-1" *ngIf="currentUrl === 'deletedTodos'" (click)="deleteTodo(todo.id)"><i
+                        class="fa-solid fa-rotate-left"></i>
+                </button>
+
             </div>
         </div>
     </div>
