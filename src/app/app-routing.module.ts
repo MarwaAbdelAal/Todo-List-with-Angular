@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { TodoDetailsComponent } from './components/todo-details/todo-details.component';
 import { TodosComponent } from './components/todos/todos.component';
 import { AuthGuard } from './guards/auth.guard';
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: "contactus", component: ContactUsComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'todos', component: TodosComponent, canActivate: [AuthGuard] },
+  { path: 'todoDetails/:id', component: TodoDetailsComponent, canActivate: [AuthGuard] },
   { path: 'completedTodos', component: CompletedTodosComponent, canActivate: [AuthGuard] },
   { path: 'favouritesTodos', component: FavTodosComponent, canActivate: [AuthGuard] },
   { path: 'deletedTodos', component: DeletedTodosComponent, canActivate: [AuthGuard] },

@@ -40,7 +40,7 @@
         
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li *ngIf="isLoggedIn" class="nav-item">
-            <a class="nav-link" [routerLink]="['profile']" routerLinkActive="active">{{user.name}}</a>
+            <a class="nav-link" [routerLink]="['profile']" routerLinkActive="active">{{loggedInUsername}}</a>
           </li>
           <li *ngIf="isLoggedIn" class="nav-item">
             <a class="nav-link" [routerLink]="['profile']" routerLinkActive="active"><img src="../../../assets/gray-user-profile-icon-png-fP8Q1P.png" class="img-fluid" width="30px" height="30px"></a>

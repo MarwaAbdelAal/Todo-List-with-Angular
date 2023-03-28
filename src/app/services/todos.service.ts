@@ -76,9 +76,7 @@ export class TodosService {
   }
 
   getUserTodos(userId: number): Todo[] {
-    this.todos = JSON.parse(localStorage.getItem('todos') || '[]');
-    this.todos = this.todos.filter((todo) => todo.userId === userId)
-    return this.todos;
+    return this.getAllTodos().filter((todo) => todo.userId === userId)
   }
 
   getAllTodos(): Todo[] {

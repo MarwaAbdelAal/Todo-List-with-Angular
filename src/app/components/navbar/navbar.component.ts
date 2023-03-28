@@ -16,6 +16,7 @@ export class NavbarComponent {
   user!: User;
   todos: Todo[] = [];
   isLoggedIn = false;
+  loggedInUsername!: string;
   numOfCompletedTodos: number = 0;
   numOfDeletedTodos: number = 0;
   numOfFavouriteTodos: number = 0;
@@ -24,8 +25,11 @@ export class NavbarComponent {
     this._users.loggedIn$.subscribe((res) => {
       this.isLoggedIn = res;
     })
+    this._users.loggedInUsername$.subscribe((res) => {
+      this.loggedInUsername = res;
+    })
     this._todos.numOfCompletedTodos$.subscribe((res) => {
-      this.numOfCompletedTodos = Math.floor(res * 100);
+      this.numOfCompletedTodos = Math.floor(res * 100) | 0;
     })
     this._todos.numOfFavouriteTodos$.subscribe((res) => {
       this.numOfFavouriteTodos = res;

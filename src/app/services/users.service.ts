@@ -14,6 +14,8 @@ export class UsersService {
   users: User[] = [];
   loggedIn = new BehaviorSubject(false);
   loggedIn$ = this.loggedIn.asObservable();
+  loggedInUsername = new BehaviorSubject("Anonymous");
+  loggedInUsername$ = this.loggedInUsername.asObservable();
 
   getAllUsers(): User[] {
     this.users = JSON.parse(localStorage.getItem('users') || '[]');
@@ -22,12 +24,14 @@ export class UsersService {
 
   isLoggedIn(): boolean {
     this.loggedIn.next(true);
+    this.loggedInUsername.next(this.user.name);
     return !!localStorage.getItem('user');
   }
 
   logout() {
     localStorage.removeItem('user');
     this.loggedIn.next(false);
+    this.loggedInUsername.next("Anonymous");
   }
 
   isUserLoggedIn(sentEmail: string, sentPassword: string): boolean {
@@ -35,11 +39,13 @@ export class UsersService {
 
     if (!loggedUser) {
       this.loggedIn.next(false);
+      this.loggedInUsername.next("Anonymous");
       return false
     }
     this.user = loggedUser;
     localStorage.setItem('user', JSON.stringify(this.user))
     this.loggedIn.next(true);
+    this.loggedInUsername.next(this.user.name);
     return true;
   }
 
